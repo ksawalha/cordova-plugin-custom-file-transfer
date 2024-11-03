@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="com.karamsawalha.customfiletransfer"
+        version="1.0.0">
+  
+  <name>CustomFileTransfer</name>
+  <description>A custom plugin for file transfer with chunking and progress tracking.</description>
+  <license>Apache 2.0</license>
+  <keywords>cordova, file transfer, upload, chunking, progress</keywords>
+  <author>Your Company</author>
+
+  <js-module name="CustomFileTransfer" src="www/CustomFileTransfer.js">
+    <clobbers target="CustomFileTransfer" />
+  </js-module>
+
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <!-- Permissions for file upload and internet access -->
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    </config-file>
+
+    <config-file parent="/*" target="AndroidManifest.xml">
+      <!-- Enabling background service and notification channels -->
+      <service android:name=".CustomFileTransferService" android:enabled="true" android:exported="false" />
+    </config-file>
+
+    <source-file src="src/android/CustomFileTransfer.java" target-dir="src/com/yourcompany/customfiletransfer" />
+  </platform>
+  <!-- Custom preferences to support configurations in config.xml -->
+  <preference name="UploadChunkSize" default="1048576" /> <!-- 1MB chunks -->
+  <preference name="ConcurrentUploads" default="4" /> <!-- Maximum concurrent uploads -->
+
+</plugin>
